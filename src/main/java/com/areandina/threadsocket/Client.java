@@ -21,6 +21,9 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        int aciertos = 0;
+        int desaciertos = 0;
+
         try {
             Socket socket = new Socket("localhost", 12345);
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -29,9 +32,6 @@ public class Client {
 
             System.out.println("¡Bienvenido al juego de adivinar números!");
             System.out.println("Escribe 'terminar' para salir.");
-
-            int aciertos = 0;
-            int desaciertos = 0;
 
             while (true) {
                 int randomNumber = Util.GenerarRandom();
@@ -64,7 +64,7 @@ public class Client {
             stdIn.close();
             socket.close();
         } catch (IOException e) {
-
+            System.out.println("Aciertos: " + aciertos + ", Desaciertos: " + desaciertos);
         }
     }
 
