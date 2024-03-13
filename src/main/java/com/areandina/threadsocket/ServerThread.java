@@ -46,11 +46,13 @@ public class ServerThread extends Thread {
                     out.println("Adivinaste!");
                     desaciertos = 0; 
                 } else {
-                    out.println("Fallaste!");
+                 
                     desaciertos++;
                     if (desaciertos >= Server.MAX_DESACIERTOS) {
                         out.println("Perdiste!");
                         break;
+                    }else{
+                           out.println("Fallaste!");
                     }
                 }
             }
