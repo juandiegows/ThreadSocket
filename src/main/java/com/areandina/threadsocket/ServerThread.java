@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,9 +21,7 @@ public class ServerThread extends Thread {
     private Socket clientSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private int aciertos = 0;
     private int desaciertos = 0;
-    private int desaciertosTotal = 0;
 
     public ServerThread(Socket socket) {
         this.clientSocket = socket;
@@ -39,31 +39,28 @@ public class ServerThread extends Thread {
                     break;
                 }
 
-                int randomNumber = (int) (Math.random() * 10);
+                int randomNumber =  Util.GenerarRandom();
                 int guess = Integer.parseInt(inputLine.trim());
-
+                System.out.println("Servidor: #"+randomNumber   );
                 if (guess == randomNumber) {
                     out.println("Adivinaste!");
-                    aciertos++;
-                    desaciertos = 0; // Reiniciar contador de desaciertos
+                    desaciertos = 0; 
                 } else {
                     out.println("Fallaste!");
                     desaciertos++;
-                    desaciertosTotal++;
                     if (desaciertos >= Server.MAX_DESACIERTOS) {
                         out.println("Perdiste!");
-                        out.println("Aciertos: " + aciertos + ", Desaciertos: " + desaciertos);
                         break;
                     }
                 }
             }
 
-            out.println("Aciertos: " + aciertos + ", Desaciertos: " + desaciertos);
+      
             in.close();
             out.close();
             clientSocket.close();
         } catch (IOException e) {
-            out.println("Aciertos: " + aciertos + ", Desaciertos: " + desaciertos);
-        }
+            
+        } 
     }
 }

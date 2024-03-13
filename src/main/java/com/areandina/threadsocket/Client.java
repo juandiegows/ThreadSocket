@@ -30,9 +30,12 @@ public class Client {
             System.out.println("¡Bienvenido al juego de adivinar números!");
             System.out.println("Escribe 'terminar' para salir.");
 
+            int aciertos = 0;
+            int desaciertos = 0;
+
             while (true) {
-                int randomNumber = new Random().nextInt(10);
-                System.out.println("Cliente: el número es : " + randomNumber);
+                int randomNumber = Util.GenerarRandom();
+                System.out.println("Cliente: el número es  " + randomNumber);
                 out.println(randomNumber);
                 String response = in.readLine();
                 System.out.println("Servidor: " + response);
@@ -41,15 +44,20 @@ public class Client {
                 }
 
                 if (response.equalsIgnoreCase("Adivinaste!")) {
+                    aciertos++;
                     System.out.println("-----------------------------------------------------------------");
-                      System.out.println("------------------------adivinaste-----------------------------");
+                    System.out.println("------------------------adivinaste-----------------------------");
                     System.out.println("-----------------------------------------------------------------");
-                  
+
+                } else if (response.equalsIgnoreCase("Fallaste!")) {
+                    desaciertos++;
                 }
+
                 if (response.equalsIgnoreCase("terminar")) {
                     break;
                 }
             }
+            System.out.println("Aciertos: " + aciertos + ", Desaciertos: " + desaciertos);
 
             out.close();
             in.close();
